@@ -1,0 +1,241 @@
+/* 容器布局 */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-width: 600px;
+  margin: 20px auto;
+  border: 1px solid #2d2d2d; /* 深色边框 */
+  border-radius: 15px; /* 增加圆角 */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 增加阴影深度 */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  background-color: #1a1a1a; /* 整体深色底 */
+}
+
+/* 消息显示区域 - 炫酷深色背景 */
+.messages-area {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+  /* 炫酷渐变背景 */
+  background: linear-gradient(135deg, #1e1e2f 0%, #2c2c43 100%);
+  /* 滚动条美化（可选，但Canvas环境支持有限） */
+  color: #f0f0f0; /* 确保消息区域的默认文本颜色是浅色 */
+}
+
+/* 消息行布局 */
+.message-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.user-row {
+  justify-content: flex-end;
+}
+
+.ai-row {
+  justify-content: flex-start;
+}
+
+/* 消息气泡基础样式 */
+.message-bubble {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 18px;
+  line-height: 1.5;
+  position: relative;
+  word-break: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 角色名称 */
+.message-role-name {
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-bottom: 3px;
+  opacity: 0.7;
+}
+
+/* --- 角色特定的气泡样式 --- */
+
+/* 用户消息气泡（深色背景下的高亮色） */
+.user {
+  background-color: #4a90e2; /* 蓝色 */
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+.user .message-role-name {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* AI 消息气泡（浅色，与深色背景形成对比） */
+.narrator {
+  background-color: #e5e5ea;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.characterA {
+  background-color: #d1ffc0;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.characterB {
+  background-color: #ffc0c0;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.loading-indicator {
+  text-align: center;
+  font-style: italic;
+  color: #aaa; /* 适应深色背景 */
+  margin-top: 10px;
+}
+
+/* --- 输入区域样式 --- */
+
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #3d3d3d; /* 深色分割线 */
+  background-color: #2a2a2a; /* 深色输入背景 */
+  align-items: center;
+}
+
+.input-area input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  /* 关键修复：确保输入文本颜色为黑色 */
+  color: #1a1a1a;
+  background-color: white; /* 确保输入框本身是白色，以区分背景 */
+}
+
+.input-area button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #4a90e2; /* 蓝色 */
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+.input-area button:hover:not(:disabled) {
+    background-color: #3b74b6;
+}
+
+/* 禁用状态 */
+.input-area input:disabled {
+  background-color: #3d3d3d;
+  color: #aaaaaa;
+  cursor: not-allowed;
+}
+.input-area button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* 启用时的样式 */
+.input-area input:not(:disabled) {
+    background-color: white;
+    cursor: text;
+}
+.input-area button:not(:disabled) {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+/* --- 麦克风按钮样式 --- */
+
+.mic-button {
+  width: 45px !important;
+  height: 45px;
+  margin-left: 10px;
+  font-size: 1.5em !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff4500 !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+}
+
+.mic-button.recording {
+  background-color: red !important;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 69, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
+}
+
+/* --- 音频播放按钮样式 --- */
+
+.audio-play-button {
+  display: block;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border: 1px solid #4a90e2;
+  border-radius: 15px;
+  background-color: #333; /* 适应深色背景 */
+  color: #4a90e2;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.audio-play-button:hover:not(:disabled) {
+  background-color: #222;
+}
+
+.audio-play-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* --- 角色选择区域样式 --- */
+
+.role-selection-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-top: 1px solid #3d3d3d;
+  color: #f0f0f0; /* 确保文字可见 */
+  z-index: 10;
+}
+
+.role-selection-area label {
+  font-weight: 500;
+  margin-right: 10px;
+  font-size: 0.95em;
+}
+
+.role-selection-area select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #3a3a3a; /* 深色下拉框 */
+  color: #f0f0f0; /* 白色文字 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* 调整下拉箭头颜色以适应深色背景 */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="white" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+  cursor: pointer;
+}

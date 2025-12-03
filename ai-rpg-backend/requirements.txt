@@ -1,0 +1,6 @@
+Flask
+flask-cors
+openai
+python-dotenv
+baidu-aip   # 新增：百度 AI 开放平台 SDK
+ffmpeg-python
